@@ -52,7 +52,7 @@ def longest_prefix(words):
 # end
 
 
-def addBinary(s1, s2):
+def add_binary(s1, s2):
     idx1, idx2 = len(s1) - 1, len(s2) - 1
     carry = 0
     result = ""
@@ -239,3 +239,56 @@ def valid_anagrams(s, t):
 # end
 
 # print(valid_anagrams("program", "function"))
+
+
+def first_unique_character(string):
+    char_frequency = {}
+    for char in string:
+        char_frequency[char] = char_frequency.get(char, 0) + 1
+
+    for idx in range(len(string)):
+        if char_frequency[string[idx]] == 1:
+            return idx
+
+    return -1
+
+
+def find_the_difference(s, t):
+    if len(s) == 0:
+        return t
+    char_count = {}
+    for char in s:
+        char_count[char] = char_count.get(char, 0) + 1
+
+    for char in t:
+        if char not in char_count or char_count[char] == 0:
+            return char
+        else:
+            char_count[char] -= 1
+
+
+def intersection(num1, num2):
+    if len(num1) == 0 or len(num2) == 0:
+        return False
+
+    number1_set = set(num1)
+    number2_set = set(num2)
+
+    intersect = [num for num in number1_set if num in number2_set]
+
+    return intersect
+
+
+def uncommon_words(s1, s2):
+    word1 = s1.split(" ")
+    word2 = s2.split(" ")
+
+    character_map = {}
+    for i in range(0, len(word1)):
+        character_map[word1[i]] = character_map.get(word1[i], 0) + 1
+    for i in range(0, len(word2)):
+        character_map[word2[i]] = character_map.get(word2[i], 0) + 1
+
+    container = [word for word, counter in character_map.items() if counter == 1]
+
+    return container
