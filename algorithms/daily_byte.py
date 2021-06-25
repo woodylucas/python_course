@@ -63,7 +63,7 @@ def add_binary(s1, s2):
         sum = digit_one + digit_two + carry
         solution = sum % 2
         carry = sum // 2
-        result = str(solution) + result
+        result = chr(ord("0") + solution) + result
         idx1 -= 1
         idx2 -= 1
 
@@ -129,7 +129,7 @@ def add_strings(num1, num2):
         digit_two = ord(num2[idx_two]) - ord("0") if idx_two >= 0 else 0
         sum = digit_one + digit_two + carry
         current_digit = sum % 10
-        solution = str(current_digit) + solution
+        solution = chr(ord("0") + current_digit) + solution
         carry = sum // 10
 
         idx_one -= 1
@@ -167,6 +167,32 @@ def add_to_array_form_integer(nums, k):
 
 
 # end
+
+
+def multiply_strings(num1, num2):
+    solution = [0 for i in range(len(num1) + len(num2))]
+
+    for j in reversed(range(len(num2))):
+        carry = 0
+        idx = len(num1) + j
+        for i in reversed(range(len(num1))):
+            product = (ord(num2[j]) - ord("0")) * (ord(num1[i]) - ord("0")) + carry + solution[idx]
+            solution[idx] = product % 10
+            carry = product // 10
+            idx -= 1
+
+        solution[j] += carry
+
+    idx = 0
+    while idx < len(solution) and solution[idx] == 0:
+        idx += 1
+
+    product_string = ""
+
+    for i in range(idx, len(solution)):
+        product_string += chr(ord("0") + solution[i])
+
+    return "0" if product_string == "" else product_string
 
 
 def correct_cap(word):
@@ -292,3 +318,18 @@ def uncommon_words(s1, s2):
     container = [word for word, counter in character_map.items() if counter == 1]
 
     return container
+
+
+def majority_elem(nums):
+    candidate, counter = 0, 0
+
+    for num in nums:
+        if candidate == num:
+            counter += 1
+        elif counter == 0:
+            candidate = num
+            counter += 1
+        else:
+            counter -= 1
+
+    return candidate

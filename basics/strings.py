@@ -24,3 +24,9 @@ my_string = "This is my string"
 
 
 # skip characters with a step: string[start:end:step]
+
+reverse_string = "Reverse this string"
+print(reverse_string[::-1])
+
+
+# Mileage converter
